@@ -1,7 +1,9 @@
 #pragma once
 
 #include <vector>
+#include <iostream> // Include any other necessary headers here
 #include "Account.hpp"
+class Account; // Forward declaration of the Account class
 
 class Bank
 {
@@ -12,9 +14,9 @@ public:
 
 	Bank& operator=(const Bank& other);
 
-	Bank(Bank&& other) noexcept;
+	Bank(Bank& other) ;
 
-	Bank& operator=(Bank&& other) noexcept;
+	Bank& operator=(Bank& other);
 
 	~Bank();
 
@@ -26,13 +28,11 @@ public:
 
 	void addClientAccount(Account* account);
 
-    void removeLiquidity(int amount);
+	friend std::ostream& operator << (std::ostream& p_os, const Bank& p_bank);
 
-    friend std::ostream& operator << (std::ostream& p_os, const Bank& p_bank);
+	void removeLiquidity(int amount);
 
-    void Bank::removeLiquidity(int amount);
-
-    void addLiquidity(int amount);
+	void addLiquidity(int amount);
 
 private:
 	int liquidity;

@@ -3,31 +3,36 @@
 
 int main()
 {
-	Account accountA = Account();
-	accountA.setId(0);
-	accountA.setValue(100);
+    Account accountA = Account();
+    accountA.setId(0);
+    accountA.setValue(100);
 
-	Account accountB = Account();
-	accountB.setId(1);
-	accountB.setValue(100);
+    Account accountC = Account();
+    accountC.setId(0);
+    accountC.setValue(100);
 
-	Bank bank = Bank();
-	bank.setLiquidity(999);
+    Account accountB = Account();
+    accountB.setId(1);
+    accountB.setValue(100);
+
+    Bank bank = Bank();
+    bank.setLiquidity(999);
     bank.addClientAccount(&accountA);
     bank.addClientAccount(&accountB);
+    bank.addClientAccount(&accountC);
 
-	bank.removeLiquidity(200);
+    bank.removeLiquidity(200);
 
-	accountA.addValue(400) += 400;
+    accountA.addValue(400, bank);
 
-	std::cout << "Account : " << std::endl;
-	std::cout << accountA << std::endl;
-	std::cout << accountB << std::endl;
+    std::cout << "Account : " << std::endl;
+    std::cout << accountA << std::endl;
+    std::cout << accountB << std::endl;
 
-	std::cout << " ----- " << std::endl;
+    std::cout << " ----- " << std::endl;
 
-	std::cout << "Bank : " << std::endl;
-	std::cout << bank << std::endl;
+    std::cout << "Bank : " << std::endl;
+    std::cout << bank << std::endl;
 
-	return (0);
+    return (0);
 }

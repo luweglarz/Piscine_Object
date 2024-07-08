@@ -23,27 +23,26 @@ Bank& Bank::operator=(const Bank& other)
     return *this;
 }
 
-Bank::Bank(Bank&& other) noexcept :
-    liquidity(std::move(other.liquidity)),
-    clientAccounts(std::move(other.clientAccounts))
+Bank::Bank(Bank& other):
+    liquidity(other.liquidity),
+    clientAccounts(other.clientAccounts)
 {
 
 }
 
-Bank& Bank::operator=(Bank&& other) noexcept
+Bank& Bank::operator=(Bank& other)
 {
     if (this != &other)
     {
-        this->liquidity = std::move(other.liquidity);
-        this->clientAccounts = std::move(other.clientAccounts);
+        this->liquidity = other.liquidity;
+        this->clientAccounts = other.clientAccounts;
     }
     return *this;
 }
 
 Bank::~Bank()
 {
-    for (auto& account : clientAccounts)
-        delete account;
+    this->clientAccounts.clear();
 }
 
 const int& Bank::getLiquidity() const {
@@ -59,16 +58,24 @@ const std::vector<Account *>& Bank::getClientAccounts() const {
 }
 
 void Bank::addClientAccount(Account* account) {
-    this->clientAccounts.push_back(account);
+    for (std::vector<Account*>::iterator it = this->clientAccounts.begin(); it != this->clientAccounts.end(); it++)
+    {
+        if ((*it)->getId() == account->getId()){
+            std::cerr << "Account with id " << account->getId() << " already exists in the bank" << std::endl;
+        }
+    }
+    if (account != NULL)
+        this->clientAccounts.push_back(account);
 }
 
 std::ostream& operator << (std::ostream& p_os, const Bank& p_bank)
 {
     p_os << "Bank informations : " << std::endl;
-    p_os << "Liquidity : " << p_bank.liquidity << std::endl;
-    for (auto &clientAccount : p_bank.clientAccounts)
-        p_os << *clientAccount << std::endl;
-    return (p_os);
+    p_os << "Liquidity : " << p_bank.getLiquidity() << std::endl;
+    const std::vector<Account*>& clientAccounts = p_bank.getClientAccounts();
+    for (std::vector<Account*>::const_iterator it = clientAccounts.begin(); it != clientAccounts.end(); ++it)
+        p_os << *(*it) << std::endl;
+    return p_os;
 }
 
 void Bank::removeLiquidity(int amount) {

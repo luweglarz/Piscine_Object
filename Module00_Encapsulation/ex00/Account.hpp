@@ -1,4 +1,9 @@
+#pragma once
+
 #include <iostream>
+#include "Bank.hpp"
+
+class Bank;
 
 class Account {
 public:
