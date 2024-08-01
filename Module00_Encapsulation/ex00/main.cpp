@@ -23,10 +23,14 @@ int main()
 
     bank.removeLiquidity(200);
 
-    accountA.addValue(400, bank);
+    //accountA.addValue(400, bank);
 
     std::cout << "Account : " << std::endl;
+    std::cout << bank << std::endl;
     std::cout << accountA << std::endl;
+    bank.addMoney(accountA, 100);
+    std::cout << accountA << std::endl;
+    std::cout << bank << std::endl;
     std::cout << accountB << std::endl;
 
     std::cout << " ----- " << std::endl;

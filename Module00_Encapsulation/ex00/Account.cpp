@@ -50,28 +50,3 @@ std::ostream& operator << (std::ostream& p_os, const Account& p_account)
     p_os << "[" << p_account.id << "] - [" << p_account.value << "]";
     return p_os;
 }
-
-void Account::addValue(const int addiValue, Bank& bank)
-{
-    bool foundAccount = false;
-    std::vector<Account *> accounts = bank.getClientAccounts();
-
-    size_t i = 0;
-    while (i < bank.getClientAccounts().size())
-    {
-        Account* account = bank.getClientAccounts()[i];
-        if (account->getId() == this->id)
-        {
-            account->setValue(account->getValue() + addiValue);
-            foundAccount = true;
-            break;
-        }
-        i++;
-    }
-    if (!foundAccount)
-    {
-        std::cerr << "Account with id " << this->id << " not found in the bank" << std::endl;
-    }
-    this->value += addiValue;
-	bank.addLiquidity(addiValue * 0.05);
-}

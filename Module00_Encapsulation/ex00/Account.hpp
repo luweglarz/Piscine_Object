@@ -25,8 +25,6 @@ public:
 
 	friend std::ostream& operator << (std::ostream& p_os, const Account& p_account);
 
-    void addValue(const int addiValue, Bank& bank);
-
 private:
 	int id;
 	int value;

@@ -68,6 +68,29 @@ void Bank::addClientAccount(Account* account) {
         this->clientAccounts.push_back(account);
 }
 
+void Bank::addMoney(Account& account, int amount) {
+    bool foundAccount = false;
+    int commission = amount * 0.05;
+    size_t i = 0;
+
+    while (i < this->clientAccounts.size())
+    {
+        Account* checkAccount = this->clientAccounts[i];
+        if (account.getId() == checkAccount->getId())
+        {
+            account.setValue(account.getValue() + (amount - commission));
+            foundAccount = true;
+            break;
+        }
+        i++;
+    }
+    if (!foundAccount)
+    {
+        std::cerr << "Account with id " << account.getId() << " not found in the bank" << std::endl;
+    }
+	this->liquidity += commission;
+}
+
 std::ostream& operator << (std::ostream& p_os, const Bank& p_bank)
 {
     p_os << "Bank informations : " << std::endl;
