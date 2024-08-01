@@ -91,6 +91,32 @@ void Bank::addMoney(Account& account, int amount) {
 	this->liquidity += commission;
 }
 
+void Bank::giveLoan(Account& account, int amount) {
+    bool foundAccount = false;
+    size_t i = 0;
+
+    if (amount > this->liquidity){
+        std::cerr << "Not enough liquidity in the bank" << std::endl;
+        return ;
+    }
+    while (i < this->clientAccounts.size())
+    {
+        Account* checkAccount = this->clientAccounts[i];
+        if (account.getId() == checkAccount->getId())
+        {
+            account.setValue(account.getValue() + amount);
+            foundAccount = true;
+            break;
+        }
+        i++;
+    }
+    if (!foundAccount)
+    {
+        std::cerr << "Account with id " << account.getId() << " not found in the bank" << std::endl;
+    }
+	this->liquidity -= amount;
+}
+
 std::ostream& operator << (std::ostream& p_os, const Bank& p_bank)
 {
     p_os << "Bank informations : " << std::endl;

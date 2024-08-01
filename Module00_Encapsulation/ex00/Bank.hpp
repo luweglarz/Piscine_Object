@@ -36,6 +36,8 @@ public:
 
 	void addMoney(Account& account, int amount);
 
+	void giveLoan(Account& account, int amount);
+
 private:
 	int liquidity;
 	std::vector<Account *> clientAccounts;

@@ -35,6 +35,15 @@ int main()
 
     std::cout << " ----- " << std::endl;
 
+    std::cout << "Account : " << std::endl;
+    std::cout << bank << std::endl;
+    std::cout << accountA << std::endl;
+    bank.giveLoan(accountA, 300);
+    std::cout << accountA << std::endl;
+    std::cout << bank << std::endl;
+
+    std::cout << " ----- " << std::endl;
+
     std::cout << "Bank : " << std::endl;
     std::cout << bank << std::endl;
 
